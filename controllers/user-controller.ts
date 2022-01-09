@@ -1,8 +1,8 @@
-import express, {Response} from 'express'
+import {Response} from 'express'
 
 import {TUser} from '../types/user'
 import {IRequest} from '../interfaces/request'
-import User from '../models/User'
+import User from '../models/user'
 import generatePassword from '../utils/generate-password'
 import generateJWT from '../utils/generate-JWT'
 

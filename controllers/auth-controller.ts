@@ -1,7 +1,7 @@
 import {Response} from 'express'
 
 import {IRequest} from '../interfaces/request'
-import User from '../models/User'
+import User from '../models/user'
 import {TUser} from '../types/user'
 import checkValidPassword from '../utils/check-valid-password'
 import generateJWT from '../utils/generate-JWT'
