@@ -1,14 +1,11 @@
 import passport from 'passport'
 import {Strategy as JwiStrategy, ExtractJwt} from 'passport-jwt'
-import fs from 'fs'
 
 import User from '../models/user'
 
-const publicKey = fs.readFileSync('./public.key', 'utf-8')
-
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: publicKey,
+  secretOrKey: (process.env.PUBLIC_KEY as string).replace(/\\n/gm, '\n'),
   algorithms: ['RS256'],
 }
 

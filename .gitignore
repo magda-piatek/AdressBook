@@ -64,6 +64,4 @@ node_modules/
 
 # dotenv environment variables file
 .env
-private.key
-public.key
 build
