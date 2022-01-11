@@ -11,7 +11,6 @@ describe('POST /user/register', () => {
     let registerResponse
 
     const {email, password} = registerCredentials
-    console.log('test')
 
     beforeAll(async () => {
       registerResponse = await handlePostUser(registerCredentials)
