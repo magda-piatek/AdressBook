@@ -19,7 +19,7 @@ export const login = async (req: IRequest<TUser>, res: Response) => {
 
     if (isValidPassword) {
       const jwt = generateJWT(user)
-      res.json({
+      res.status(200).json({
         success: true,
         user,
         token: jwt.token,

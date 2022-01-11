@@ -1,7 +1,7 @@
 <script>
-  function handleLoginSubmit() {
+  function handRegisterSubmit() {
     $.ajax({
-      url: '/api/auth/login',
+      url: '/api/user/register',
       type: 'POST',
       data: { email: $("#email").val(), password: $("#password").val() },
       success: function (res) {
@@ -15,11 +15,10 @@
   }
 </script>
 
-<form onsubmit="handleLoginSubmit(); return false;">
+<form onsubmit="handRegisterSubmit(); return false;">
   <label for="email">Email</label><br>
   <input id="email" type="text" id="email" name="email"><br>
   <label for="password">Password</label><br>
   <input id="password" type="password" id="password" name="password"><br><br>
-  <input type="submit" value="Login">
+  <input type="submit" value="Register">
 </form>
-<div>Don't have an account? <a href="/register">Register</a></div

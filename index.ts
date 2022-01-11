@@ -3,11 +3,13 @@ import passport from 'passport'
 import session from 'express-session'
 
 import connectDB from './config/db'
-import user from './routes/user'
-import auth from './routes/auth'
-import contact from './routes/contact'
+import user from './routes/user/user'
+import auth from './routes/auth/auth'
+import contact from './routes/contact/contact'
 
 const {engine} = require('express-handlebars')
+
+const port = process.env.PORT
 
 require('dotenv').config()
 
@@ -16,8 +18,6 @@ require('./utils/passport')
 connectDB()
 
 const app: Application = express()
-
-const port = process.env.PORT
 
 app.use(express.json())
 
@@ -37,24 +37,34 @@ app.engine('handlebars', engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-  res.render('login')
-})
+app.set('views', './views')
 
 app.use(passport.initialize())
-app.use(passport.session())
-
-console.log(process.env.MONGO_DB_URL)
 
 app.use('/api/user', user)
 app.use('/api/auth', auth)
 app.use('/api/contact', contact)
 
-try {
-  app.listen(port, (): void => {
-    console.log(`Connected successfully on port ${port}`)
-  })
-} catch (error: any) {
-  console.error(`Error occured: ${error.message}`)
+app.get('/contacts', (req, res) => {
+  res.render('contacts')
+})
+
+app.get('/register', (req, res) => {
+  res.render('register')
+})
+
+app.get('/', (req, res) => {
+  res.render('login')
+})
+
+if (process.env.NODE_ENV !== 'test') {
+  try {
+    app.listen(port, (): void => {
+      console.log(`Connected successfully on port ${port}`)
+    })
+  } catch (error: any) {
+    console.error(`Error occured: ${error.message}`)
+  }
 }
+
+export default app

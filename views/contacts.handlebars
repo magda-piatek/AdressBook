@@ -1,0 +1,66 @@
+<script>
+    function handleUnauthorizedError() {
+        alert('Unauthorized')
+        localStorage.removeItem('token')
+        window.location.replace('/');
+    }
+    function getContacts() {
+        $.ajax({
+            url: '/api/contact/get',
+            type: 'GET',
+            headers: { Authorization: localStorage.getItem('token') },
+            success: function ({ result }) {
+                result.map(el => $("#list").append("<tr><td>" + el.first_name + "</td><td>" + el.last_name + "</td><td>" + el.phone_number + "</td><td>" + el.address + "</td></tr>"))
+            },
+            error: function (err) {
+                if (err.status === 401) {
+                    handleUnauthorizedError()
+                }
+                else alert('Error!')
+            }
+        })
+    }
+
+    function handleCreateContact() {
+        $.ajax({
+            url: '/api/contact/create',
+            type: 'POST',
+            headers: { Authorization: localStorage.getItem('token') },
+            data: { first_name: $("#first_name").val(), last_name: $("#last_name").val(), phone_number: $("#phone_number").val(), address: $("#address").val() },
+            success: function () {
+                $("#list").empty()
+                getContacts()
+            },
+            error: function (err) {
+                if (err.status === 401) {
+                    handleUnauthorizedError()
+                }
+                else alert('Error!')
+            }
+        })
+    }
+
+
+    $(window).load(function () {
+        if (!localStorage.getItem('token'))
+            window.location.replace('/');
+
+        getContacts()
+    });
+</script>
+
+ 
+<form onsubmit="handleCreateContact(); return false;">
+    <label for="first_name">First name</label><br>
+    <input id="first_name" type="text" id="first_name" name="first_name"><br>
+    <label for="last_name">Last name</label><br>
+    <input id="last_name" type="text" id="last_name" name="last_name"><br><br>
+    <label for="last_name">Phone number</label><br>
+    <input id="phone_number" type="text" id="phone_number" name="phone_number"><br><br>
+    <label for="address">Address</label><br>
+    <input id="address" type="text" id="address" name="address"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+
+<table id="list" />

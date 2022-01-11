@@ -6,7 +6,7 @@ import User from '../models/user'
 import generatePassword from '../utils/generate-password'
 import generateJWT from '../utils/generate-JWT'
 
-export const register = async (req: IRequest<TUser>, res: Response) => {
+export const postUser = async (req: IRequest<TUser>, res: Response) => {
   const {email, password} = req.body
 
   try {
@@ -31,8 +31,17 @@ export const register = async (req: IRequest<TUser>, res: Response) => {
       expiresIn: jwt.expires,
     })
   } catch (err) {
-    console.log(err)
-
     res.status(500).send({error: err})
+  }
+}
+
+export const deleteUser = async (req: IRequest<TUser>, res: Response) => {
+  try {
+    const user = await User.findById(req.body._id)
+
+    await User.findOneAndDelete({_id: user._id})
+    res.status(200).json({success: true})
+  } catch (err) {
+    res.status(500).json({error: err})
   }
 }

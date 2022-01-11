@@ -12,6 +12,7 @@ const options = {
 const strategy = new JwiStrategy(options, async (payload, done) => {
   try {
     const user = await User.findOne({_id: payload.sub})
+
     if (user) return done(null, user)
     return done(null, false, {message: "User doesn't exist"})
   } catch (err) {

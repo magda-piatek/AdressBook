@@ -5,11 +5,11 @@ import {TUser} from '../types/user'
 export default function generateJWT(user: TUser) {
   const _id = user._id
 
-  const expiresIn = '1d'
+  const expiresIn = '1h'
 
   const payload = {
     sub: _id,
-    iat: Date.now(),
+    iat: Math.floor(Date.now() / 1000),
   }
 
   const signedToken = jsonwebtoken.sign(

@@ -3,7 +3,9 @@ import mongoose, {ConnectOptions} from 'mongoose'
 export default async () => {
   try {
     await mongoose.connect(
-      process.env.MONGO_URL as string,
+      (process.env.NODE_ENV === 'test'
+        ? process.env.MONGO_URL_TEST
+        : process.env.MONGO_URL) as string,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
