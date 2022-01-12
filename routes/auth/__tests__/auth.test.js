@@ -1,5 +1,4 @@
-import {loginCredentials} from '../../../constants/test-constants'
-import {handleLogin} from '../../../utils/test-utils'
+import {handleLogin, loginCredentials} from '../../../utils/test-utils'
 
 describe('POST /auth/login', () => {
   beforeEach(() => {

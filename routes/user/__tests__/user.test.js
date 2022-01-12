@@ -1,6 +1,9 @@
 import checkValidPassword from '../../../utils/check-valid-password'
-import {registerCredentials} from '../../../constants/test-constants'
-import {handleDeleteUser, handlePostUser} from '../../../utils/test-utils'
+import {
+  handleDeleteUser,
+  handlePostUser,
+  registerCredentials,
+} from '../../../utils/test-utils'
 
 describe('POST /user/register', () => {
   beforeEach(() => {

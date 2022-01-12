@@ -16,3 +16,20 @@ export const handleDeleteUser = async (data) =>
 
 export const handlePostUser = async (data) =>
   await request(app).post('/api/user/register').send(data)
+
+export const loginCredentials = {
+  email: 'testuser@gmail.com',
+  password: 'testuser123',
+}
+
+export const registerCredentials = {
+  email: 'testuser125@gmail.com',
+  password: 'testuser125',
+}
+
+export const contactData = {
+  first_name: 'Cecilia',
+  last_name: 'Chapman',
+  phone_number: '563-7401',
+  address: 'Mankato Mississippi 96522',
+}

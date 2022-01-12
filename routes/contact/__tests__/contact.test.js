@@ -1,5 +1,9 @@
-import {contactData, loginCredentials} from '../../../constants/test-constants'
-import {handleCreateContact, handleLogin} from '../../../utils/test-utils'
+import {
+  handleCreateContact,
+  handleLogin,
+  contactData,
+  loginCredentials,
+} from '../../../utils/test-utils'
 
 describe('POST /contact/create', () => {
   beforeEach(() => {
