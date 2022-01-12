@@ -1,10 +1,15 @@
 <script>
-    function handleUnauthorizedError() {
-        alert('Unauthorized')
+
+    function handleLogout() {
         localStorage.removeItem('token')
         window.location.replace('/');
     }
-    function getContacts() {
+
+    function handleUnauthorizedError() {
+        alert('Unauthorized')
+
+    }
+    function handleGetContacts() {
         $.ajax({
             url: '/api/contact/get',
             type: 'GET',
@@ -29,7 +34,7 @@
             data: { first_name: $("#first_name").val(), last_name: $("#last_name").val(), phone_number: $("#phone_number").val(), address: $("#address").val() },
             success: function () {
                 $("#list").empty()
-                getContacts()
+                handleGetContacts()
             },
             error: function (err) {
                 if (err.status === 401) {
@@ -41,15 +46,17 @@
     }
 
 
+
     $(window).load(function () {
         if (!localStorage.getItem('token'))
             window.location.replace('/');
 
-        getContacts()
+        handleGetContacts()
     });
 </script>
 
- 
+<button onclick="handleLogout()">Log out</button>
+
 <form onsubmit="handleCreateContact(); return false;">
     <label for="first_name">First name</label><br>
     <input id="first_name" type="text" id="first_name" name="first_name"><br>

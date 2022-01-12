@@ -1,11 +1,10 @@
 import mongoose, {ConnectOptions} from 'mongoose'
+import keys from './keys'
 
 export default async () => {
   try {
     await mongoose.connect(
-      (process.env.NODE_ENV === 'test'
-        ? process.env.MONGO_URL_TEST
-        : process.env.MONGO_URL) as string,
+      keys.mongodbUrl as string,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
