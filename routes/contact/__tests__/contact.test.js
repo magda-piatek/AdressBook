@@ -17,7 +17,7 @@ describe('POST /contact/create', () => {
         beforeAll(async () => {
           createContactResponse = await handleCreateContact(
             contactData,
-            loginResponse.body.token
+            loginResponse.body.result.token
           )
         })
 
@@ -32,7 +32,7 @@ describe('POST /contact/create', () => {
               ...contactData,
               first_name: '',
             },
-            loginResponse.body.token
+            loginResponse.body.result.token
           )
         })
 

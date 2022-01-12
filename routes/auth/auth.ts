@@ -1,11 +1,33 @@
-import express from 'express'
+import {Express} from 'express'
 
-import registerSchema from '../../validation/register'
+import authSchema from '../../validation/auth'
 import validateObject from '../../middleware/validation'
 import * as authController from '../../controllers/auth-controller'
 
-const router = express.Router()
+function routes(app: Express) {
+  /**
+   * @openapi
+   * '/api/auth/login':
+   *  post:
+   *     tags:
+   *     - Auth
+   *     summary: Login
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *              $ref: '#/components/schemas/User'
+   *     responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Server Error
+   *      400:
+   *        description: Bad request
+   *
+   */
 
-router.post('/login', validateObject(registerSchema), authController.login)
-
-export default router
+  app.post('/api/auth/login', validateObject(authSchema), authController.login)
+}
+export default routes

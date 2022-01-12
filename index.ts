@@ -1,11 +1,10 @@
-import express, {Application} from 'express'
+import express, {Express} from 'express'
 import passport from 'passport'
 import session from 'express-session'
 
-import connectDB from './config/db'
-import user from './routes/user/user'
-import auth from './routes/auth/auth'
-import contact from './routes/contact/contact'
+import connectDB from './config/db-mongodb'
+import swaggerDocs from './utils/swagger'
+import routes from './routes/routes'
 
 const {engine} = require('express-handlebars')
 
@@ -17,7 +16,7 @@ require('./utils/passport')
 
 connectDB()
 
-const app: Application = express()
+const app: Express = express()
 
 app.use(express.json())
 
@@ -41,9 +40,7 @@ app.set('views', './views')
 
 app.use(passport.initialize())
 
-app.use('/api/user', user)
-app.use('/api/auth', auth)
-app.use('/api/contact', contact)
+routes(app)
 
 app.get('/contacts', (req, res) => {
   res.render('contacts')
@@ -60,6 +57,8 @@ app.get('/', (req, res) => {
 if (process.env.NODE_ENV !== 'test') {
   try {
     app.listen(port, (): void => {
+      swaggerDocs(app, Number(port))
+
       console.log(`Connected successfully on port ${port}`)
     })
   } catch (error: any) {

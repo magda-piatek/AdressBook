@@ -20,6 +20,6 @@ export default (resourceSchema: any) =>
         }
       })
 
-      res.status(400).json({error: validationErrors})
+      res.status(400).json({success: false, error: validationErrors})
     }
   }

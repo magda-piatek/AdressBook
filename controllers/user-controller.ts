@@ -13,7 +13,7 @@ export const postUser = async (req: IRequest<TUser>, res: Response) => {
     let user = await User.findOne({email})
 
     if (user) {
-      res.status(400).json({error: 'User already exists'})
+      res.status(400).json({success: false, error: 'User already exists'})
       return
     }
 
@@ -26,12 +26,10 @@ export const postUser = async (req: IRequest<TUser>, res: Response) => {
 
     res.json({
       success: true,
-      user: newUser,
-      token: jwt.token,
-      expiresIn: jwt.expires,
+      result: {user: newUser, token: jwt.token, expiresIn: jwt.expires},
     })
   } catch (err) {
-    res.status(500).send({error: err})
+    res.status(500).send({success: false, error: err})
   }
 }
 
@@ -42,6 +40,6 @@ export const deleteUser = async (req: IRequest<TUser>, res: Response) => {
     await User.findOneAndDelete({_id: user._id})
     res.status(200).json({success: true})
   } catch (err) {
-    res.status(500).json({error: err})
+    res.status(500).json({success: false, error: err})
   }
 }

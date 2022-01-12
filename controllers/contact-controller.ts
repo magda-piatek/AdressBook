@@ -12,9 +12,9 @@ export const createContact = async (req: IRequest<TContact>, res: Response) => {
 
     const {id} = await firestore.collection('contacts').add(data)
 
-    res.status(200).json({success: true, id})
+    res.status(200).json({success: true, result: {id}})
   } catch (err) {
-    res.status(500).json({error: err})
+    res.status(500).json({success: false, error: err})
   }
 }
 
@@ -26,6 +26,6 @@ export const getContacts = async (_: any, res: Response) => {
 
     res.status(200).json({success: true, result: contactsList})
   } catch (err) {
-    res.status(500).json({error: err})
+    res.status(500).json({success: false, error: err})
   }
 }

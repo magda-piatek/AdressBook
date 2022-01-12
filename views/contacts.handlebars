@@ -37,7 +37,7 @@
                 handleGetContacts()
             },
             error: function (err) {
-                if (err.status === 401) {
+                if (err.result.status === 401) {
                     handleUnauthorizedError()
                 }
                 else alert('Error!')

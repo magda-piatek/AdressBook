@@ -1,18 +1,40 @@
-import express from 'express'
+import {Express} from 'express'
 
-import registerSchema from '../../validation/register'
+import authSchema from '../../validation/auth'
 import validateObject from '../../middleware/validation'
 
 import * as userController from '../../controllers/user-controller'
 
-const router = express.Router()
+function routes(app: Express) {
+  /**
+   * @openapi
+   * '/api/user/register':
+   *  post:
+   *     tags:
+   *     - User
+   *     summary: Create a user
+   *     requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *           schema:
+   *              $ref: '#/components/schemas/User'
+   *     responses:
+   *      200:
+   *        description: Success
+   *      500:
+   *        description: Internal Server Error
+   *      400:
+   *        description: Bad request
+   *
+   */
+  app.post(
+    '/api/user/register',
+    validateObject(authSchema),
+    userController.postUser
+  )
 
-router.post(
-  '/register',
-  validateObject(registerSchema),
-  userController.postUser
-)
+  app.delete('/api/user/delete', userController.deleteUser)
+}
 
-router.delete('/delete', userController.deleteUser)
-
-export default router
+export default routes

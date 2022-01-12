@@ -11,7 +11,7 @@ export const login = async (req: IRequest<TUser>, res: Response) => {
     const user = await User.findOne({email: req.body.email})
 
     if (!user) {
-      res.status(401).json({error: `User doesn't exist`})
+      res.status(401).json({success: false, error: `User doesn't exist`})
       return
     }
 
@@ -21,12 +21,11 @@ export const login = async (req: IRequest<TUser>, res: Response) => {
       const jwt = generateJWT(user)
       res.status(200).json({
         success: true,
-        user,
-        token: jwt.token,
-        expiresIn: jwt.expires,
+        result: {user, token: jwt.token, expiresIn: jwt.expires},
       })
-    } else res.status(401).json({error: 'Password is incorrect'})
+    } else
+      res.status(401).json({success: false, error: 'Password is incorrect'})
   } catch (err) {
-    res.status(500).json({error: err})
+    res.status(500).json({success: false, error: err})
   }
 }

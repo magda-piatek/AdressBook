@@ -4,8 +4,8 @@
       url: '/api/auth/login',
       type: 'POST',
       data: { email: $("#email").val(), password: $("#password").val() },
-      success: function (res) {
-        localStorage.setItem('token', res.token)
+      success: function ({result}) {
+        localStorage.setItem('token', result.token)
         window.location.replace('/contacts');
       },
       error: function () {

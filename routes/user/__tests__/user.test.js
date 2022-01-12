@@ -16,7 +16,7 @@ describe('POST /user/register', () => {
       registerResponse = await handlePostUser(registerCredentials)
     })
     afterAll(() => {
-      handleDeleteUser({_id: registerResponse.body.user._id})
+      handleDeleteUser({_id: registerResponse.body.result.user._id})
     })
 
     test('should respond with a 200 status code', () => {
@@ -24,13 +24,13 @@ describe('POST /user/register', () => {
     })
 
     test('should an email in registerResponse and given email be equal', () => {
-      expect(registerResponse.body.user.email).toBe(email)
+      expect(registerResponse.body.result.user.email).toBe(email)
     })
 
     test('should password in registerResponse and given passport be equal', async () => {
       const isValidPassport = await checkValidPassword(
         password,
-        registerResponse.body.user
+        registerResponse.body.result.user
       )
       expect(isValidPassport).toBe(true)
     })
