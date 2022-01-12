@@ -8,11 +8,10 @@ import routes from './routes/routes'
 
 const {engine} = require('express-handlebars')
 
-const port = process.env.PORT
-
 require('dotenv').config()
-
 require('./utils/passport')
+
+const port = process.env.PORT
 
 connectDB()
 
@@ -36,7 +35,6 @@ app.engine('handlebars', engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
-app.set('views', './views')
 
 app.use(passport.initialize())
 

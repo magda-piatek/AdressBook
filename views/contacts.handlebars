@@ -7,8 +7,8 @@
 
     function handleUnauthorizedError() {
         alert('Unauthorized')
-
     }
+
     function handleGetContacts() {
         $.ajax({
             url: '/api/contact/get',
@@ -33,11 +33,12 @@
             headers: { Authorization: localStorage.getItem('token') },
             data: { first_name: $("#first_name").val(), last_name: $("#last_name").val(), phone_number: $("#phone_number").val(), address: $("#address").val() },
             success: function () {
+                Array.from(["#first_name", "#last_name", "#phone_number", "#address"]).forEach(el => $(el).val(''))
                 $("#list").empty()
                 handleGetContacts()
             },
             error: function (err) {
-                if (err.result.status === 401) {
+                if (err.status === 401) {
                     handleUnauthorizedError()
                 }
                 else alert('Error!')
@@ -45,14 +46,12 @@
         })
     }
 
-
-
     $(window).load(function () {
         if (!localStorage.getItem('token'))
             window.location.replace('/');
-
         handleGetContacts()
     });
+
 </script>
 
 <button onclick="handleLogout()">Log out</button>

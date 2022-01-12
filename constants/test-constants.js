@@ -4,8 +4,8 @@ export const loginCredentials = {
 }
 
 export const registerCredentials = {
-  email: 'testuser12@gmail.com',
-  password: 'testuser12',
+  email: 'testuser125@gmail.com',
+  password: 'testuser125',
 }
 
 export const contactData = {

@@ -16,6 +16,10 @@ describe('POST /auth/login', () => {
     test('should respond with a 200 status code', () => {
       expect(loginReponse.statusCode).toBe(200)
     })
+
+    test('should an email in loginReponse and given email be equal', () => {
+      expect(loginReponse.body.result.user.email).toBe(loginCredentials.email)
+    })
   })
 
   describe('given an incorrect password', () => {
@@ -33,7 +37,7 @@ describe('POST /auth/login', () => {
       expect(loginReponse.statusCode).toBe(401)
     })
 
-    test(`should error message be 'Password is incorrect'`, () => {
+    test(`should response with 'Password is incorrect' error message`, () => {
       expect(loginReponse.body.error).toBe('Password is incorrect')
     })
   })
@@ -53,7 +57,7 @@ describe('POST /auth/login', () => {
       expect(loginReponse.statusCode).toBe(401)
     })
 
-    test(`should error message be 'User doesn't exist'`, () => {
+    test(`should response with 'User doesn't exist' error message`, () => {
       expect(loginReponse.body.error).toBe(`User doesn't exist`)
     })
   })
